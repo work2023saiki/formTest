@@ -11,36 +11,45 @@ app.config['SECRET_KEY'] = os.urandom(24)
 # ==================================================
 # ルーティング
 # ==================================================
-from forms import InputForm
+from forms import InputForm, InputForm2
 
-# 入力
+#ログイン
 @app.route('/', methods=['GET', 'POST'])
-def input():
+def login():
+    form2 = InputForm2()
+    # POST
+    if form2.validate_on_submit():
+        
+        return redirect(url_for('dammy'))
+    # GETリクエストの場合、またはフォームの値がバリデーションを通過しなかった場合
+    return render_template('login.html', form=form2)
+
+# 登録
+@app.route('/touroku', methods=['GET', 'POST'])
+def touroku():
     form = InputForm()
     # POST
     if form.validate_on_submit():
         session['name'] = form.name.data
         session['password'] = form.password.data
         session['confirm_password'] = form.confirm_password.data
-        session['email'] = form.email.data
         
-        return redirect(url_for('output'))
-    # GET
-    if 'name' in session:
-        form.name.data = session['name']
-    if 'password' in session:
-        form.password.data = session['password']
-    if 'confirm_password' in session:
-        form.confirm_password.data = session['confirm_password']
-    if 'email' in session:
-        form.email.data = session['email']
+        return redirect(url_for('tourokuOK'))
+    
     # GETリクエストの場合、またはフォームの値がバリデーションを通過しなかった場合
-    return render_template('input.html', form=form)
+    return render_template('touroku.html', form=form)
 
 # 出力
-@app.route('/output')
-def output():
-    return render_template('output.html')
+@app.route('/tourokuOK')
+def tourokuOK():
+    return render_template('tourokuOK.html')
+
+
+@app.route('/dammy')
+def dammy():
+    return render_template('tourokuOK.html')
+
+
 
 # ==================================================
 # 実行
