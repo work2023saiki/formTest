@@ -32,8 +32,6 @@ def input():
         form.password.data = session['password']
     if 'confirm_password' in session:
         form.confirm_password.data = session['confirm_password']
-    if 'email' in session:
-        form.email.data = session['email']
     # GETリクエストの場合、またはフォームの値がバリデーションを通過しなかった場合
     return render_template('input.html', form=form)
 
