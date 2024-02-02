@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base.html" %}    <!--base.htmlをもとに作成-->
 
 {% block title %}
     <h1>登録完了</h1>
@@ -7,7 +7,7 @@
 {% block content %}
     <div>
         <ul>
-            <li>名前: {{session['name']}}</li>
+            <li>名前: {{session['name']}}</li>     <!--ファイルapp.pyの33～35行目の変数の中身を表示-->
             <li>パスワード: {{session['password']}}</li>
         </ul>
         <p><a href="{{ url_for('login') }}">ログインへ</a></p>
